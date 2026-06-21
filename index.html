@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>My Daily Sanctuary 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f8f5fd;color:#2c2c2a;min-height:100vh}
+.pg{padding-bottom:2.5rem}
+/* HEADER */
+.hdr{background:#ede0f7;padding:2.2rem 2rem 1.5rem;position:relative;overflow:hidden;border-bottom:1px solid #d9c2f0}
+.hdr-flowers{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:.15}
+.hdr-inner{position:relative;z-index:1;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;max-width:1200px;margin:0 auto}
+.hdr-inner h1{font-family:'Playfair Display',serif;font-size:2.1rem;color:#5b2d8e;font-weight:400;line-height:1.2}
+.hdr-inner p{font-size:12px;color:#8a5cb5;margin-top:4px;letter-spacing:.04em}
+.clk{background:rgba(255,255,255,.7);border:1px solid #d9c2f0;border-radius:14px;padding:12px 20px;text-align:center;min-width:130px}
+.clk-t{font-family:'Playfair Display',serif;font-size:1.9rem;color:#5b2d8e}
+.clk-d{font-size:11px;color:#8a5cb5;margin-top:2px;letter-spacing:.05em}
+/* GRID */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.2rem;max-width:1200px;margin:0 auto}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #ead8f5;border-radius:14px;padding:1.2rem}
+.full{grid-column:1/-1}
+.ct{display:flex;align-items:center;gap:7px;margin-bottom:.9rem}
+.ct span{font-family:'Playfair Display',serif;font-size:1rem;color:#5b2d8e;font-weight:500}
+.ct .ic{font-size:18px;color:#a06dd4}
+/* SUMMER */
+.sum-track{height:18px;background:#ead8f5;border-radius:9px;overflow:hidden;margin:6px 0}
+.sum-fill{height:100%;border-radius:9px;background:#a06dd4;transition:width .8s ease}
+.sum-dots{display:flex;justify-content:space-between;font-size:10px;color:#b49ac8;margin-top:4px}
+.sum-stats{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.sstat{background:#f9f2fe;border:1px solid #ead8f5;border-radius:10px;padding:6px 14px;text-align:center}
+.sstat .sv{font-size:16px;font-weight:500;color:#5b2d8e}
+.sstat .sl{font-size:10px;color:#b49ac8;margin-top:1px}
+/* QUOTE */
+.quote-card{background:#f5ecfd;border-left:3px solid #a06dd4;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:12px}
+.qt{font-family:'Playfair Display',serif;font-size:13.5px;color:#5b2d8e;font-style:italic;line-height:1.7}
+.qa{font-size:11px;color:#a06dd4;margin-top:6px}
+.qnav{display:flex;gap:7px}
+.qbtn{padding:5px 13px;border-radius:18px;font-size:11px;cursor:pointer;border:1px solid #ddc7f5;background:#f9f2fe;color:#8a5cb5;transition:all .2s;font-family:'Inter',sans-serif}
+.qbtn:hover{background:#ede0f7;border-color:#c17ee8}
+/* MOOD */
+.moods{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+.mood-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 10px;border-radius:12px;border:1.5px solid #ead8f5;background:#f9f2fe;cursor:pointer;transition:all .2s;min-width:46px}
+.mood-btn:hover{border-color:#c17ee8;background:#f0e4fc}
+.mood-btn.sel{border-color:#a06dd4;background:#ede0f7}
+.mood-btn .me{font-size:21px;line-height:1}
+.mood-btn .ml{font-size:10px;color:#8a5cb5}
+.mood-btn.sel .ml{color:#5b2d8e;font-weight:500}
+.mood-log{display:flex;flex-direction:column;gap:4px;max-height:115px;overflow-y:auto}
+.mood-entry{display:flex;align-items:center;gap:7px;font-size:12px;color:#5b2d8e;padding:3px 0;border-bottom:.5px solid #f0e4fc}
+.mood-time{font-size:10px;color:#b49ac8;min-width:42px}
+/* SCHEDULE */
+.sr{display:flex;align-items:stretch;gap:7px;margin-bottom:5px}
+.tl{font-size:11px;color:#b49ac8;min-width:42px;padding-top:6px}
+.sb{flex:1;background:#f5ecfd;border-left:3px solid #c17ee8;border-radius:6px;padding:6px 10px}
+.sb input{border:none;background:transparent;font-size:12px;color:#5b2d8e;width:100%;outline:none;font-family:'Inter',sans-serif}
+.sb input::placeholder{color:#c9aee0;font-style:italic}
+/* GYM */
+.dtabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.dt{padding:4px 10px;border-radius:18px;font-size:11px;cursor:pointer;border:1px solid #ddc7f5;background:#f9f2fe;color:#8a5cb5;transition:all .2s;font-family:'Inter',sans-serif}
+.dt.active{background:#a06dd4;color:#fff;border-color:#a06dd4}
+.gl{display:flex;flex-direction:column;gap:5px}
+.gi{display:flex;align-items:center;gap:7px;padding:6px 10px;background:#f9f2fe;border-radius:8px;border:1px solid #ead8f5}
+.gi input[type=checkbox]{accent-color:#a06dd4;width:14px;height:14px;cursor:pointer}
+.gi .en{font-size:12px;color:#3d1f6b;flex:1}
+.gi .st{font-size:11px;color:#b49ac8;background:#fff;border:1px solid #ead8f5;border-radius:10px;padding:1px 8px}
+.ab{margin-top:8px;font-size:11px;color:#a06dd4;background:none;border:1px dashed #ddc7f5;border-radius:8px;padding:5px;width:100%;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.ab:hover{background:#f5ecfd;border-style:solid}
+/* TODO */
+.tl2{display:flex;flex-direction:column;gap:4px}
+.ti{display:flex;align-items:center;gap:7px;padding:5px 7px;border-radius:7px;transition:background .15s}
+.ti:hover{background:#f9f2fe}
+.ti input[type=checkbox]{accent-color:#a06dd4;width:14px;height:14px;cursor:pointer}
+.ti input[type=text]{border:none;background:transparent;font-size:12px;color:#3d1f6b;width:100%;outline:none;font-family:'Inter',sans-serif}
+.ti input[type=text]::placeholder{color:#c9aee0;font-style:italic}
+.pd{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ph{background:#e24b4a}.pm{background:#ef9f27}.pl{background:#1d9e75}
+/* WATER */
+.cup{width:32px;height:38px;border-radius:3px 3px 6px 6px;border:2px solid #b3d1f5;background:#eaf3fd;cursor:pointer;position:relative;overflow:hidden;display:flex;align-items:flex-end;transition:all .2s}
+.cup.filled{border-color:#4a90d9}
+.cf{width:100%;background:#90caf9;border-radius:0 0 4px 4px;transition:height .3s}
+.cup:not(.filled) .cf{height:0}
+.cup.filled .cf{height:100%}
+/* HABIT GRID */
+.hg{display:grid;grid-template-columns:80px repeat(7,1fr);gap:3px;align-items:center}
+.hl{font-size:11px;color:#5b2d8e;font-weight:500}
+.dh{font-size:10px;color:#b49ac8;text-align:center}
+.hc{width:100%;aspect-ratio:1;border-radius:5px;border:1px solid #ead8f5;background:#f9f2fe;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.hc.done{background:#a06dd4;border-color:#a06dd4}
+.hc.done::after{content:'✓';font-size:9px;color:#fff}
+/* PROGRESS */
+.pr{display:flex;flex-direction:column;gap:6px}
+.prow{display:flex;align-items:center;gap:8px}
+.plbl{font-size:11px;color:#5b2d8e;min-width:72px}
+.ptrk{flex:1;height:8px;background:#ead8f5;border-radius:4px;overflow:hidden}
+.pfil{height:100%;border-radius:4px;background:#a06dd4;transition:width .6s}
+.ppct{font-size:11px;color:#8a5cb5;min-width:30px;text-align:right}
+/* CUSTOM HABITS */
+.ch-list{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.ch-item{display:flex;align-items:center;gap:7px;padding:6px 10px;background:#f9f2fe;border-radius:8px;border:1px solid #ead8f5}
+.ch-item input[type=text]{border:none;background:transparent;font-size:12px;color:#3d1f6b;flex:1;outline:none;font-family:'Inter',sans-serif}
+.ch-item input[type=text]::placeholder{color:#c9aee0;font-style:italic}
+.del-btn{font-size:14px;color:#c9aee0;cursor:pointer;background:none;border:none;padding:0;line-height:1;transition:color .2s}
+.del-btn:hover{color:#e24b4a}
+.ch-input-row{display:flex;gap:6px;margin-top:2px}
+.ch-input-row input{flex:1;font-size:12px;padding:6px 10px;border:1px solid #ddc7f5;border-radius:8px;outline:none;background:#f9f2fe;color:#3d1f6b;font-family:'Inter',sans-serif}
+.ch-add-btn{padding:6px 14px;border-radius:8px;border:1px solid #a06dd4;background:#a06dd4;color:#fff;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif}
+.ch-add-btn:hover{background:#8a5cb5}
+</style>
+</head>
+<body>
+<div class="pg">
+
+<!-- HEADER -->
+<div class="hdr">
+  <svg class="hdr-flowers" viewBox="0 0 1200 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g><circle cx="55" cy="45" r="14" fill="#c17ee8"/><circle cx="40" cy="30" r="11" fill="#c17ee8"/><circle cx="70" cy="30" r="11" fill="#c17ee8"/><circle cx="40" cy="60" r="11" fill="#c17ee8"/><circle cx="70" cy="60" r="11" fill="#c17ee8"/><circle cx="55" cy="45" r="10" fill="#f8f5fd"/></g>
+    <g transform="translate(1110,15)"><circle cx="35" cy="35" r="12" fill="#a06dd4"/><circle cx="22" cy="22" r="9" fill="#a06dd4"/><circle cx="48" cy="22" r="9" fill="#a06dd4"/><circle cx="22" cy="48" r="9" fill="#a06dd4"/><circle cx="48" cy="48" r="9" fill="#a06dd4"/><circle cx="35" cy="35" r="9" fill="#f8f5fd"/></g>
+    <g transform="translate(570,8)"><circle cx="26" cy="26" r="9" fill="#c17ee8"/><circle cx="16" cy="16" r="7" fill="#c17ee8"/><circle cx="36" cy="16" r="7" fill="#c17ee8"/><circle cx="16" cy="36" r="7" fill="#c17ee8"/><circle cx="36" cy="36" r="7" fill="#c17ee8"/><circle cx="26" cy="26" r="6" fill="#f8f5fd"/></g>
+    <g transform="translate(240,10)"><path d="M20,30 Q24,10 30,30 Q50,24 36,34 Q50,48 30,42 Q24,58 20,42 Q0,48 14,34 Q0,24 20,30Z" fill="#d4a0e8"/><circle cx="25" cy="36" r="6" fill="#f8f5fd"/></g>
+    <g transform="translate(840,12)"><path d="M20,30 Q24,10 30,30 Q50,24 36,34 Q50,48 30,42 Q24,58 20,42 Q0,48 14,34 Q0,24 20,30Z" fill="#d4a0e8"/><circle cx="25" cy="36" r="6" fill="#f8f5fd"/></g>
+    <g transform="translate(420,18)"><path d="M15,22 Q18,7 22,22 Q37,17 27,25 Q37,36 22,31 Q18,46 15,31 Q0,36 10,25 Q0,17 15,22Z" fill="#c8a0e0"/><circle cx="18.5" cy="26.5" r="4.5" fill="#f8f5fd"/></g>
+    <g transform="translate(700,10)"><path d="M15,22 Q18,7 22,22 Q37,17 27,25 Q37,36 22,31 Q18,46 15,31 Q0,36 10,25 Q0,17 15,22Z" fill="#c8a0e0"/><circle cx="18.5" cy="26.5" r="4.5" fill="#f8f5fd"/></g>
+    <g transform="translate(1000,20)"><path d="M15,22 Q18,7 22,22 Q37,17 27,25 Q37,36 22,31 Q18,46 15,31 Q0,36 10,25 Q0,17 15,22Z" fill="#c8a0e0"/><circle cx="18.5" cy="26.5" r="4.5" fill="#f8f5fd"/></g>
+    <g transform="translate(140,25)"><path d="M12,18 Q14,6 18,18 Q30,14 22,20 Q30,29 18,25 Q14,37 12,25 Q0,29 8,20 Q0,14 12,18Z" fill="#d4a0e8"/><circle cx="15" cy="21.5" r="3.5" fill="#f8f5fd"/></g>
+  </svg>
+  <div class="hdr-inner">
+    <div>
+      <h1>🌸 My Daily Sanctuary</h1>
+      <p id="hdate">Loading...</p>
+    </div>
+    <div class="clk">
+      <div class="clk-t" id="clkt">00:00</div>
+      <div class="clk-d" id="clkd">—</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+
+<!-- SUMMER PROGRESS -->
+<div class="card full">
+  <div class="ct"><i class="ti ti-sun ic" aria-hidden="true"></i><span>Summer countdown ☀️</span></div>
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px">
+    <span style="font-size:12px;color:#8a5cb5" id="sum-label">Calculating...</span>
+    <span style="font-size:1.15rem;font-weight:500;color:#5b2d8e" id="sum-pct">—%</span>
+  </div>
+  <div class="sum-track"><div class="sum-fill" id="sum-fill" style="width:0%"></div></div>
+  <div class="sum-dots"><span>Jun 7</span><span>Jul 1</span><span>Aug 1</span><span>Sep 1</span></div>
+  <div class="sum-stats" id="sum-stats"></div>
+</div>
+
+<!-- QUOTE -->
+<div class="card">
+  <div class="ct"><i class="ti ti-quote ic" aria-hidden="true"></i><span>Daily quote 🌷</span></div>
+  <div class="quote-card">
+    <div class="qt" id="qtext"></div>
+    <div class="qa" id="qauthor"></div>
+  </div>
+  <div class="qnav">
+    <button class="qbtn" onclick="prevQ()">← prev</button>
+    <button class="qbtn" onclick="nextQ()">next →</button>
+    <button class="qbtn" onclick="randQ()">✨ shuffle</button>
+  </div>
+</div>
+
+<!-- MOOD -->
+<div class="card">
+  <div class="ct"><i class="ti ti-mood-smile ic" aria-hidden="true"></i><span>Mood tracker 🌙</span></div>
+  <div class="moods" id="moodBtns"></div>
+  <div style="font-size:11px;color:#b49ac8;margin-bottom:5px">Today's log</div>
+  <div class="mood-log" id="moodLog"><div style="font-size:11px;color:#c9aee0;font-style:italic">No moods logged yet</div></div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="card">
+  <div class="ct"><i class="ti ti-calendar ic" aria-hidden="true"></i><span>Today's schedule</span></div>
+  <div class="sr"><div class="tl">6 AM</div><div class="sb"><input placeholder="Morning routine..."/></div></div>
+  <div class="sr"><div class="tl">7 AM</div><div class="sb"><input placeholder="Add event..."/></div></div>
+  <div class="sr"><div class="tl">8 AM</div><div class="sb"><input value="Gym session 💪"/></div></div>
+  <div class="sr"><div class="tl">10 AM</div><div class="sb"><input placeholder="Add event..."/></div></div>
+  <div class="sr"><div class="tl">12 PM</div><div class="sb"><input value="Lunch & rest 🌿"/></div></div>
+  <div class="sr"><div class="tl">2 PM</div><div class="sb"><input placeholder="Add event..."/></div></div>
+  <div class="sr"><div class="tl">5 PM</div><div class="sb"><input placeholder="Add event..."/></div></div>
+  <div class="sr"><div class="tl">7 PM</div><div class="sb"><input value="Evening walk 🌸"/></div></div>
+  <div class="sr"><div class="tl">9 PM</div><div class="sb"><input value="Wind down / read"/></div></div>
+</div>
+
+<!-- GYM -->
+<div class="card">
+  <div class="ct"><i class="ti ti-barbell ic" aria-hidden="true"></i><span>Gym routine</span></div>
+  <div class="dtabs" id="gymDays">
+    <button class="dt active" onclick="setDay(this,'Mon')">Mon</button>
+    <button class="dt" onclick="setDay(this,'Tue')">Tue</button>
+    <button class="dt" onclick="setDay(this,'Wed')">Wed</button>
+    <button class="dt" onclick="setDay(this,'Thu')">Thu</button>
+    <button class="dt" onclick="setDay(this,'Fri')">Fri</button>
+    <button class="dt" onclick="setDay(this,'Sat')">Sat</button>
+    <button class="dt" onclick="setDay(this,'Sun')">Sun</button>
+  </div>
+  <div class="gl" id="gymList"></div>
+  <button class="ab" onclick="addEx()">+ Add exercise</button>
+</div>
+
+<!-- TODO -->
+<div class="card">
+  <div class="ct"><i class="ti ti-checklist ic" aria-hidden="true"></i><span>To-do list</span></div>
+  <div class="tl2" id="todos">
+    <div class="ti"><input type="checkbox"><div class="pd ph"></div><input type="text" value="Meal prep for the week"/></div>
+    <div class="ti"><input type="checkbox"><div class="pd ph"></div><input type="text" value="Book gym class"/></div>
+    <div class="ti"><input type="checkbox"><div class="pd pm"></div><input type="text" value="Call mom 🌸"/></div>
+    <div class="ti"><input type="checkbox"><div class="pd pm"></div><input type="text" value="Grocery run"/></div>
+    <div class="ti"><input type="checkbox"><div class="pd pl"></div><input type="text" value="Read 20 pages"/></div>
+    <div class="ti"><input type="checkbox"><div class="pd pl"></div><input type="text" value="Journaling"/></div>
+    <div class="ti"><input type="checkbox"><div class="pd pl"></div><input type="text" placeholder="Add a task..."/></div>
+  </div>
+  <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+    <div class="pd ph"></div><span style="font-size:10px;color:#b49ac8">High</span>
+    <div class="pd pm"></div><span style="font-size:10px;color:#b49ac8">Med</span>
+    <div class="pd pl"></div><span style="font-size:10px;color:#b49ac8">Low</span>
+  </div>
+</div>
+
+<!-- WATER -->
+<div class="card">
+  <div class="ct"><i class="ti ti-droplet ic" aria-hidden="true"></i><span>Water intake</span></div>
+  <div style="display:flex;align-items:baseline;gap:7px;margin-bottom:9px">
+    <span style="font-size:1.1rem;font-weight:500;color:#1565c0" id="wc">0</span>
+    <span style="font-size:11px;color:#90a4ae">/ 8 glasses</span>
+    <span style="background:#e3f2fd;border:1px solid #bbdefb;border-radius:12px;padding:1px 10px;font-size:11px;color:#1565c0" id="wml">0 ml</span>
+  </div>
+  <div style="display:flex;gap:5px;flex-wrap:wrap" id="cups"></div>
+  <div style="margin-top:9px;height:7px;background:#e3f2fd;border-radius:3.5px;overflow:hidden">
+    <div id="wbar" style="height:100%;background:#4a90d9;border-radius:3.5px;width:0%;transition:width .4s"></div>
+  </div>
+  <p style="font-size:10px;color:#90a4ae;margin-top:6px">Tap a glass to log 💧</p>
+</div>
+
+<!-- CUSTOM HABITS -->
+<div class="card">
+  <div class="ct"><i class="ti ti-star ic" aria-hidden="true"></i><span>Habits to build 🌱</span></div>
+  <div class="ch-list" id="chList"></div>
+  <div class="ch-input-row">
+    <input type="text" id="chInput" placeholder="New habit to build..."/>
+    <button class="ch-add-btn" onclick="addCustomHabit()">Add</button>
+  </div>
+  <div style="margin-top:8px;font-size:10px;color:#b49ac8">Tap checkbox to mark done each day ✓</div>
+</div>
+
+<!-- HABIT TRACKER -->
+<div class="card full">
+  <div class="ct"><i class="ti ti-sparkles ic" aria-hidden="true"></i><span>Habit tracker — June 2026</span></div>
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2rem">
+    <div><div class="hg" id="habitGrid"></div></div>
+    <div>
+      <p style="font-size:12px;color:#8a5cb5;margin-bottom:10px;font-family:'Playfair Display',serif;font-style:italic">Monthly progress</p>
+      <div class="pr" id="progBars"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+const QUOTES=[
+  {t:"You are allowed to be both a masterpiece and a work in progress simultaneously.",a:"Sophia Bush"},
+  {t:"She believed she could, so she did.",a:"R.S. Grey"},
+  {t:"Your only limit is your mind.",a:"Unknown"},
+  {t:"Bloom where you are planted.",a:"Saint Francis de Sales"},
+  {t:"Do something today that your future self will thank you for.",a:"Sean Patrick Flanery"},
+  {t:"You glow differently when you're actually happy.",a:"Unknown"},
+  {t:"Be the energy you want to attract.",a:"Unknown"},
+  {t:"Progress, not perfection.",a:"Unknown"},
+  {t:"Small steps every day.",a:"Unknown"},
+  {t:"A little progress each day adds up to big results.",a:"Satya Nani"},
+  {t:"Take care of your body. It's the only place you have to live.",a:"Jim Rohn"},
+  {t:"You didn't come this far to only come this far.",a:"Unknown"},
+  {t:"Your future is created by what you do today, not tomorrow.",a:"Robert Kiyosaki"},
+  {t:"Surround yourself with those who only lift you higher.",a:"Oprah Winfrey"},
+  {t:"Invest in yourself. It's the best investment you'll ever make.",a:"Unknown"},
+];
+let qi=Math.floor(Math.random()*QUOTES.length);
+function showQ(){document.getElementById('qtext').textContent='\u201c'+QUOTES[qi].t+'\u201d';document.getElementById('qauthor').textContent='\u2014 '+QUOTES[qi].a;}
+function nextQ(){qi=(qi+1)%QUOTES.length;showQ();}
+function prevQ(){qi=(qi-1+QUOTES.length)%QUOTES.length;showQ();}
+function randQ(){qi=Math.floor(Math.random()*QUOTES.length);showQ();}
+showQ();
+
+const MOODS=[{e:'😊',l:'happy'},{e:'😌',l:'calm'},{e:'😤',l:'motivated'},{e:'😴',l:'tired'},{e:'😢',l:'sad'},{e:'😰',l:'anxious'},{e:'🥰',l:'grateful'},{e:'😐',l:'meh'}];
+const moodLog=[];
+function buildMoods(){
+  const w=document.getElementById('moodBtns');w.innerHTML='';
+  MOODS.forEach(m=>{
+    const b=document.createElement('div');b.className='mood-btn';
+    b.innerHTML='<span class="me">'+m.e+'</span><span class="ml">'+m.l+'</span>';
+    b.onclick=()=>{
+      document.querySelectorAll('.mood-btn').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel');
+      const ts=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+      moodLog.unshift({e:m.e,l:m.l,t:ts});renderMoodLog();
+    };
+    w.appendChild(b);
+  });
+}
+function renderMoodLog(){
+  const c=document.getElementById('moodLog');
+  if(!moodLog.length){c.innerHTML='<div style="font-size:11px;color:#c9aee0;font-style:italic">No moods logged yet</div>';return;}
+  c.innerHTML=moodLog.slice(0,6).map(m=>'<div class="mood-entry"><span class="mood-time">'+m.t+'</span><span style="font-size:16px">'+m.e+'</span><span>'+m.l+'</span></div>').join('');
+}
+buildMoods();
+
+function updateClock(){
+  const n=new Date();
+  document.getElementById('clkt').textContent=n.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('clkd').textContent=n.toLocaleDateString([],{weekday:'long'});
+  document.getElementById('hdate').textContent=n.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+updateClock();setInterval(updateClock,1000);
+
+function calcSummer(){
+  const start=new Date('2026-06-07');const end=new Date('2026-09-01');const now=new Date();
+  const total=end-start;const elapsed=Math.max(0,Math.min(now-start,total));
+  const pct=Math.round(elapsed/total*100);
+  const daysLeft=Math.max(0,Math.ceil((end-now)/(1000*60*60*24)));
+  const daysGone=Math.max(0,Math.floor((now-start)/(1000*60*60*24)));
+  const totalDays=Math.round(total/(1000*60*60*24));
+  document.getElementById('sum-fill').style.width=pct+'%';
+  document.getElementById('sum-pct').textContent=pct+'%';
+  document.getElementById('sum-label').textContent=pct<100?(daysGone+' days in \u00b7 '+daysLeft+' days left'):'Summer complete! 🎉';
+  document.getElementById('sum-stats').innerHTML='<div class="sstat"><div class="sv">'+daysGone+'</div><div class="sl">days in</div></div><div class="sstat"><div class="sv">'+daysLeft+'</div><div class="sl">days left</div></div><div class="sstat"><div class="sv">'+totalDays+'</div><div class="sl">total days</div></div><div class="sstat"><div class="sv">'+pct+'%</div><div class="sl">complete</div></div>';
+}
+calcSummer();
+
+const gymR={Mon:[['Squats','4×10'],['Hip Thrusts','4×12'],['Leg Press','3×15'],['Walking Lunges','3×12'],['Cable Kickbacks','3×15']],Tue:[['Bench Press','4×8'],['Shoulder Press','3×12'],['Lat Pulldown','3×12'],['Tricep Dips','3×15'],['Bicep Curls','3×12']],Wed:[['Rest / active recovery 🌸','']],Thu:[['Romanian Deadlift','4×10'],['Glute Bridge','3×15'],['Calf Raises','4×20'],['Step Ups','3×12'],['Hamstring Curl','3×12']],Fri:[['Pull Ups','4×8'],['Cable Row','4×10'],['Face Pulls','3×15'],['Dumbbell Row','3×12'],['Rear Delt Fly','3×15']],Sat:[['HIIT Cardio 20 min',''],['Core Circuit','3×12'],['Plank','3×60s'],['Mountain Climbers','3×20'],['Russian Twists','3×20']],Sun:[['Rest day 🌸 — foam roll + stretch','']]};
+function setDay(el,day){
+  document.querySelectorAll('.dt').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const l=document.getElementById('gymList');l.innerHTML='';
+  (gymR[day]||[]).forEach(([ex,s])=>{
+    const d=document.createElement('div');d.className='gi';
+    d.innerHTML='<input type="checkbox"><span class="en">'+ex+'</span>'+(s?'<span class="st">'+s+'</span>':'');
+    l.appendChild(d);
+  });
+}
+function addEx(){
+  const l=document.getElementById('gymList');
+  const d=document.createElement('div');d.className='gi';
+  d.innerHTML='<input type="checkbox"><input type="text" style="border:none;background:transparent;font-size:12px;color:#3d1f6b;flex:1;outline:none;font-family:Inter,sans-serif" placeholder="Exercise name..."><span class="st" contenteditable style="cursor:text;outline:none">3×10</span>';
+  l.appendChild(d);d.querySelector('input[type=text]').focus();
+}
+setDay(document.querySelector('.dt.active'),'Mon');
+
+let wf=0;
+function buildCups(){
+  const w=document.getElementById('cups');w.innerHTML='';
+  for(let i=0;i<8;i++){
+    const c=document.createElement('div');c.className='cup'+(i<wf?' filled':'');
+    c.innerHTML='<div class="cf"></div>';
+    c.onclick=()=>{wf=wf===i+1?i:i+1;buildCups();document.getElementById('wc').textContent=wf;document.getElementById('wml').textContent=(wf*250)+' ml';document.getElementById('wbar').style.width=Math.round(wf/8*100)+'%';};
+    w.appendChild(c);
+  }
+}
+buildCups();
+
+const habits=['💧 Water','🏋️ Gym','🌙 Sleep 8h','🥗 Eat clean','📖 Read','🧘 Stretch'];
+const days=Array.from({length:20},(_,i)=>(i+1).toString());
+const dh=['M','T','W','T','F','S','S'];
+const hs={};
+habits.forEach(h=>{hs[h]={};days.forEach(d=>{hs[h][d]=Math.random()>.45;});});
+function buildGrid(){
+  const g=document.getElementById('habitGrid');g.innerHTML='';
+  const el=document.createElement('div');el.className='hl';g.appendChild(el);
+  dh.forEach(d=>{const e=document.createElement('div');e.className='dh';e.textContent=d;g.appendChild(e);});
+  habits.forEach(h=>{
+    const l=document.createElement('div');l.className='hl';l.textContent=h;g.appendChild(l);
+    days.forEach(d=>{
+      const c=document.createElement('div');c.className='hc'+(hs[h][d]?' done':'');
+      c.onclick=()=>{hs[h][d]=!hs[h][d];c.classList.toggle('done');updateProg();};
+      g.appendChild(c);
+    });
+    for(let i=days.length;i<7;i++){const p=document.createElement('div');p.style.cssText='width:100%;aspect-ratio:1';g.appendChild(p);}
+  });
+}
+function updateProg(){
+  const b=document.getElementById('progBars');b.innerHTML='';
+  habits.forEach(h=>{
+    const done=days.filter(d=>hs[h][d]).length;
+    const pct=Math.round(done/days.length*100);
+    b.innerHTML+='<div class="prow"><div class="plbl">'+h+'</div><div class="ptrk"><div class="pfil" style="width:'+pct+'%"></div></div><div class="ppct">'+pct+'%</div></div>';
+  });
+}
+buildGrid();updateProg();
+
+const customHabits=[];
+function renderCustomHabits(){
+  const l=document.getElementById('chList');l.innerHTML='';
+  customHabits.forEach((h,i)=>{
+    const d=document.createElement('div');d.className='ch-item';
+    const cb=document.createElement('input');cb.type='checkbox';cb.checked=h.done;cb.style.cssText='accent-color:#a06dd4;width:14px;height:14px;cursor:pointer';
+    cb.onchange=()=>{customHabits[i].done=cb.checked;renderCustomHabits();};
+    const inp=document.createElement('input');inp.type='text';inp.value=h.name;inp.onchange=e=>customHabits[i].name=e.target.value;
+    const del=document.createElement('button');del.className='del-btn';del.innerHTML='&times;';del.onclick=()=>{customHabits.splice(i,1);renderCustomHabits();};
+    d.appendChild(cb);d.appendChild(inp);d.appendChild(del);
+    l.appendChild(d);
+  });
+}
+function addCustomHabit(){
+  const inp=document.getElementById('chInput');const v=inp.value.trim();
+  if(!v)return;customHabits.push({name:v,done:false});inp.value='';renderCustomHabits();
+}
+document.getElementById('chInput').addEventListener('keydown',e=>{if(e.key==='Enter')addCustomHabit();});
+
+document.querySelectorAll('.ti input[type=checkbox]').forEach(cb=>{
+  cb.onchange=()=>{const t=cb.nextElementSibling?.nextElementSibling;if(t)t.style.textDecoration=cb.checked?'line-through':'none';};
+});
+</script>
+</body>
+</html>
