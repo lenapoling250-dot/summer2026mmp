@@ -496,31 +496,39 @@ function addTodo(){todos.push({text:'',done:false,pri:'pl'});save('todos',todos)
 renderTodos();
 
 // ── ROUTINES ──────────────────────────────────────────────
-let morningR=load('morningR',[{time:'6 AM',task:''},{time:'6:15 AM',task:''},{time:'6:30 AM',task:''},{time:'6:45 AM',task:''},{time:'7 AM',task:''}],true);
-let nightR=load('nightR',[{time:'10 PM',task:''},{time:'10:15 PM',task:''},{time:'10:30 PM',task:''},{time:'10:45 PM',task:''},{time:'11 PM',task:''}],true);
-function renderRoutine(which){
-  const data=which==='morning'?morningR:nightR;
-  const c=document.getElementById(which+'List');c.innerHTML='';
-  data.forEach((slot,i)=>{
-    const row=document.createElement('div');row.className='rt-slot';
-    const tl=document.createElement('span');tl.className='rt-time';tl.textContent=slot.time;
-    const inp=document.createElement('input');inp.className='rt-inp';inp.value=slot.task;inp.placeholder='Add step...';
-    inp.oninput=()=>{data[i].task=inp.value;save(which+'R',data,true);};
-    const del=document.createElement('button');del.className='del';del.innerHTML='&times;';del.title='Delete step';
-    del.onclick=()=>{data.splice(i,1);save(which+'R',data,true);renderRoutine(which);};
-    row.appendChild(tl);row.appendChild(inp);row.appendChild(del);c.appendChild(row);
-  });
-}
-function addSlot(which){
-  const data=which==='morning'?morningR:nightR;
-  const last=data[data.length-1];
-  data.push({time:last?nextHr(last.time):'6 AM',task:''});
-  save(which+'R',data,true);renderRoutine(which);
-  setTimeout(()=>{const ins=document.querySelectorAll('#'+which+'List .rt-inp');if(ins.length)ins[ins.length-1].focus();},50);
-}
-function nextHr(t){const m=t.match(/(\d+)\s*(AM|PM)/i);if(!m)return t;let h=parseInt(m[1]);const ap=m[2].toUpperCase();if(ap==='AM'){h++;if(h===12)return'12 PM';if(h>12)return'1 PM';return h+' AM';}else{h++;if(h===12)return'12 AM';if(h>12)return'1 AM';return h+' PM';}}
-renderRoutine('morning');renderRoutine('night');
+function nextHr(t) {
+  const m = t.match(/(\d+)(?::(\d+))?\s*(AM|PM)/i);
+  if (!m) return t;
 
+  let hour = parseInt(m[1], 10);
+  let minute = parseInt(m[2] || "0", 10);
+  let period = m[3].toUpperCase();
+
+  // Convert to 24-hour time
+  if (period === "PM" && hour !== 12) hour += 12;
+  if (period === "AM" && hour === 12) hour = 0;
+
+  // Add 15 minutes
+  minute += 15;
+
+  if (minute >= 60) {
+    minute -= 60;
+    hour++;
+  }
+
+  hour %= 24;
+
+  // Convert back to 12-hour time
+  period = hour >= 12 ? "PM" : "AM";
+  let displayHour = hour % 12;
+  if (displayHour === 0) displayHour = 12;
+
+  const displayMinute = minute.toString().padStart(2, "0");
+
+  return displayMinute === "00"
+    ? `${displayHour} ${period}`
+    : `${displayHour}:${displayMinute} ${period}`;
+}
 // ── QUOTES ────────────────────────────────────────────────
 const DQ=[{t:"You are allowed to be both a masterpiece and a work in progress simultaneously.",a:"Sophia Bush"},{t:"She believed she could, so she did.",a:"R.S. Grey"},{t:"Bloom where you are planted.",a:"Saint Francis de Sales"},{t:"Do something today that your future self will thank you for.",a:"Sean Patrick Flanery"},{t:"You glow differently when you're actually happy.",a:"Unknown"},{t:"Be the energy you want to attract.",a:"Unknown"},{t:"Progress, not perfection.",a:"Unknown"},{t:"Take care of your body. It's the only place you have to live.",a:"Jim Rohn"},{t:"Surround yourself with those who only lift you higher.",a:"Oprah Winfrey"}];
 let customQ=load('customQ',[],true);
