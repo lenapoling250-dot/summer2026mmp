@@ -398,31 +398,86 @@ function clearWxCity(){
 async function fetchWeather(){
   const city=document.getElementById('wxCity').value.trim();
   if(!city)return;
+
   save('wxCity',city,true);
   savedCity=city;
+
   document.getElementById('wxResult').innerHTML='<div style="font-size:12px;color:#b49ac8">Loading weather... 🌸</div>';
+
   try{
     const geo=await fetch('https://geocoding-api.open-meteo.com/v1/search?name='+encodeURIComponent(city)+'&count=1&language=en&format=json');
     const gd=await geo.json();
-    if(!gd.results||!gd.results.length){document.getElementById('wxResult').innerHTML='<div style="font-size:12px;color:#e24b4a">City not found — try another name</div>';return;}
+
+    if(!gd.results||!gd.results.length){
+      document.getElementById('wxResult').innerHTML='<div style="font-size:12px;color:#e24b4a">City not found — try another name</div>';
+      return;
+    }
+
     const {latitude:lat,longitude:lon,name,country_code:cc}=gd.results[0];
+
     const wx=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weathercode,windspeed_10m,uv_index,apparent_temperature&temperature_unit=fahrenheit&windspeed_unit=mph&timezone=auto');
     const wd=await wx.json();
+
     const c=wd.current;
-    const uv=+(c.uv_index||0).toFixed(1),temp=Math.round(c.temperature_2m),feel=Math.round(c.apparent_temperature),wind=Math.round(c.windspeed_10m),code=c.weathercode;
-    const {icon,desc}=wxCode(code);
+    const uv=+(c.uv_index||0).toFixed(1);
+    const temp=Math.round(c.temperature_2m);
+    const feel=Math.round(c.apparent_temperature);
+    const wind=Math.round(c.windspeed_10m);
+    const code=c.weathercode;
+
+    // ✅ FIXED THIS LINE
+    const [icon,desc]=wxCode(code);
+
     const isTan=uv>=3&&temp>=72&&code<30;
+
     document.getElementById('wxResult').innerHTML=
       '<div class="wx-card">'+
-      '<div class="wx-main"><span class="wx-icon">'+icon+'</span><div><div class="wx-temp">'+temp+'°F</div><div class="wx-desc">'+desc+' · '+name+', '+cc.toUpperCase()+'</div></div></div>'+
-      (isTan?'<span class="wx-tag tan">☀️ Great tanning day!</span>':'<span class="wx-tag cozy">🫖 Cozy day vibes</span>')+
-      '<div class="wx-details"><span class="wx-d">Feels '+feel+'°F</span><span class="wx-d">UV '+uv+'</span><span class="wx-d">💨 '+wind+' mph</span></div>'+
-      '<div style="font-size:10px;color:#b49ac8;margin-top:5px">UV 0-2 low · 3-5 moderate · 6+ high</div></div>';
-  }catch(e){document.getElementById('wxResult').innerHTML='<div style="font-size:12px;color:#e24b4a">Could not load weather. Check your connection.</div>';}
-}
-document.getElementById('wxCity').addEventListener('keydown',e=>{if(e.key==='Enter')fetchWeather();});
-function wxCode(c){const m={0:['☀️','Clear sky'],1:['🌤','Mainly clear'],2:['⛅','Partly cloudy'],3:['☁️','Overcast'],45:['🌫','Foggy'],51:['🌦','Light drizzle'],61:['🌧','Light rain'],63:['🌧','Rain'],65:['🌧','Heavy rain'],71:['🌨','Light snow'],73:['🌨','Snow'],80:['🌦','Showers'],95:['⛈','Thunderstorm']};return m[c]||['🌡','Unknown'];}
+      '<div class="wx-main">'+
+      '<span class="wx-icon">'+icon+'</span>'+
+      '<div>'+
+      '<div class="wx-temp">'+temp+'°F</div>'+
+      '<div class="wx-desc">'+desc+' · '+name+', '+cc.toUpperCase()+'</div>'+
+      '</div></div>'+
+      (isTan
+        ?'<span class="wx-tag tan">☀️ Great tanning day!</span>'
+        :'<span class="wx-tag cozy">🫖 Cozy day vibes</span>')+
+      '<div class="wx-details">'+
+      '<span class="wx-d">Feels '+feel+'°F</span>'+
+      '<span class="wx-d">UV '+uv+'</span>'+
+      '<span class="wx-d">💨 '+wind+' mph</span>'+
+      '</div>'+
+      '<div style="font-size:10px;color:#b49ac8;margin-top:5px">UV 0-2 low · 3-5 moderate · 6+ high</div>'+
+      '</div>';
 
+  }catch(e){
+    document.getElementById('wxResult').innerHTML='<div style="font-size:12px;color:#e24b4a">Could not load weather. Check your connection.</div>';
+  }
+}
+
+document.getElementById('wxCity').addEventListener('keydown',e=>{
+  if(e.key==='Enter')fetchWeather();
+});
+
+function wxCode(c){
+  const m={
+    0:['☀️','Clear sky'],
+    1:['🌤','Mainly clear'],
+    2:['⛅','Partly cloudy'],
+    3:['☁️','Overcast'],
+    45:['🌫','Foggy'],
+    51:['🌦','Light drizzle'],
+    61:['🌧','Light rain'],
+    63:['🌧','Rain'],
+    65:['🌧','Heavy rain'],
+    71:['🌨','Light snow'],
+    73:['🌨','Snow'],
+    80:['🌦','Showers'],
+    95:['⛈','Thunderstorm']
+  };
+
+  return m[c]||['🌡','Unknown'];
+}
+  
 // ── COUNTDOWN ─────────────────────────────────────────────
 let cd=load('cdData',{title:'Summer countdown ☀️',start:'2026-06-07',end:'2026-09-01',labels:['Jun 7','Jul 1','Aug 1','Sep 1']},true);
 function renderCd(){
