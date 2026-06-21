@@ -496,8 +496,8 @@ function addTodo(){todos.push({text:'',done:false,pri:'pl'});save('todos',todos)
 renderTodos();
 
 // ── ROUTINES ──────────────────────────────────────────────
-let morningR=load('morningR',[{time:'6 AM',task:''},{time:'7 AM',task:''},{time:'8 AM',task:''}],true);
-let nightR=load('nightR',[{time:'8 PM',task:''},{time:'9 PM',task:''},{time:'10 PM',task:''}],true);
+let morningR=load('morningR',[{time:'6 AM',task:''},{time:'6:15 AM',task:''},{time:'6:30 AM',task:''},{time:'6:45 AM',task:''},{time:'7 AM',task:''}],true);
+let nightR=load('nightR',[{time:'10 PM',task:''},{time:'10:15 PM',task:''},{time:'10:30 PM',task:''},{time:'10:45 PM',task:''},{time:'11 PM',task:''}],true);
 function renderRoutine(which){
   const data=which==='morning'?morningR:nightR;
   const c=document.getElementById(which+'List');c.innerHTML='';
