@@ -374,7 +374,14 @@ body{font-family:'Inter',sans-serif;background:#f8f5fd;color:#2c2c2a;min-height:
 
 <script>
 // ── STORAGE ───────────────────────────────────────────────
-const TODAY=new Date().toISOString().slice(0,10);
+const now = new Date();
+
+const TODAY =
+  now.getFullYear() +
+  '-' +
+  String(now.getMonth() + 1).padStart(2, '0') +
+  '-' +
+  String(now.getDate()).padStart(2, '0');
 const SK=k=>'sanc_'+TODAY+'_'+k, SKP=k=>'sanc_persist_'+k;
 function save(k,v,p){try{localStorage.setItem(p?SKP(k):SK(k),JSON.stringify(v));}catch(e){} showToast();}
 function load(k,d,p){try{const v=localStorage.getItem(p?SKP(k):SK(k));return v!==null?JSON.parse(v):d;}catch(e){return d;}}
