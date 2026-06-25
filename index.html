@@ -545,7 +545,14 @@ function resetSch(){if(confirm('Clear all schedule entries?')){sch=[];save('sche
 renderSch();
 
 // ── TODO ──────────────────────────────────────────────────
-let todos=load('todos',[{text:'Meal prep',done:false,pri:'ph'},{text:'Book gym class',done:false,pri:'ph'},{text:'Call mom 🌸',done:false,pri:'pm'},{text:'Grocery run',done:false,pri:'pm'},{text:'Read 20 pages',done:false,pri:'pl'}]);
+let todos=load('todos',[
+  {text:'Meal prep',done:false,pri:'ph'},
+  {text:'Book gym class',done:false,pri:'ph'},
+  {text:'Call mom 🌸',done:false,pri:'pm'},
+  {text:'Grocery run',done:false,pri:'pm'},
+  {text:'Read 20 pages',done:false,pri:'pl'}
+],true);
+  
 function renderTodos(){
   const c=document.getElementById('todos');c.innerHTML='';
   todos.forEach((t,i)=>{
