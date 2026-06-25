@@ -434,8 +434,8 @@ async function fetchWeather(){
 
     // ✅ FIXED THIS LINE
     const [icon,desc]=wxCode(code);
-
-    const isTan=uv>=3&&temp>=72&&code<30;
+    
+    const isTan=uv>=5&&temp>=72&&code<30;
 
     document.getElementById('wxResult').innerHTML=
       '<div class="wx-card">'+
