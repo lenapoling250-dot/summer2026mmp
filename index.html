@@ -509,7 +509,14 @@ function buildWeek(){const g=document.getElementById('weekGrid');g.innerHTML='';
 buildWeek();
 
 // ── SCHEDULE ──────────────────────────────────────────────
-let sch=load('schedule',[{time:'6 AM',event:''},{time:'8 AM',event:'Gym 💪'},{time:'12 PM',event:'Lunch 🌿'},{time:'7 PM',event:'Walk 🌸'},{time:'9 PM',event:'Wind down'}]);
+let sch=load('schedule',[
+  {time:'6 AM',event:''},
+  {time:'8 AM',event:'Gym 💪'},
+  {time:'12 PM',event:'Lunch 🌿'},
+  {time:'7 PM',event:'Walk 🌸'},
+  {time:'9 PM',event:'Wind down'}
+],true);
+
 function renderSch(){
   const c=document.getElementById('schList');c.innerHTML='';
   sch.forEach((r,i)=>{
