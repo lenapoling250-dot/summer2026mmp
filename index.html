@@ -768,11 +768,29 @@ function buildMoodCal(){
     const cell=document.createElement('div');cell.className='md'+(isT?' mto':'')+(isF?' fut':'');
     if(mObj){cell.style.background=mObj.c;cell.textContent=mObj.e;}
     const num=document.createElement('span');num.className='md-n';num.textContent=d;cell.appendChild(num);
-    if(!isF){cell.onclick=()=>{
-      if(moodH[ds]){delete moodH[ds];}
-      else{const opts=allM().map((x,i)=>(i+1)+'. '+x.e+' '+x.l).join('\n');const pick=prompt('Pick mood for '+ds+':\n'+opts);if(pick){const idx=parseInt(pick)-1;if(allM()[idx])moodH[ds]=allM()[idx].l;}}
-      save('moodH',moodH,true);buildMoodCal();
-    };}
+    if(ds===TODAY){
+      cell.onclick=()=>{
+        if(moodH[ds]){
+          delete moodH[ds];
+        }else{
+          const opts=allM()
+            .map((x,i)=>(i+1)+'. '+x.e+' '+x.l)
+            .join('\n');
+          const pick=prompt(
+            'Pick mood for '+ds+':\n'+opts
+          );
+          
+          if(pick){
+            const idx=parseInt(pick)-1;
+            if(allM()[idx]){
+              moodH[ds]=allM()[idx].l;
+        }
+      }
+    }
+    save('moodH',moodH,true);
+    buildMoodCal();
+  };
+}
     cal.appendChild(cell);
   }
   grid.appendChild(cal);
