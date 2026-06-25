@@ -524,9 +524,9 @@ function renderSch(){
     const lbl=document.createElement('div');lbl.className='tl-lbl';lbl.textContent=r.time;
     const sb=document.createElement('div');sb.className='sb';
     const inp=document.createElement('input');inp.value=r.event;inp.placeholder='Add event...';
-    inp.oninput=()=>{sch[i].event=inp.value;save('schedule',sch);};
+    inp.oninput=()=>{sch[i].event=inp.value;save('schedule',sch,true);};
     const del=document.createElement('button');del.className='del';del.innerHTML='&times;';del.title='Delete';
-    del.onclick=()=>{sch.splice(i,1);save('schedule',sch);renderSch();};
+    del.onclick=()=>{sch.splice(i,1);save('schedule',sch,true);renderSch();};
     sb.appendChild(inp);sb.appendChild(del);row.appendChild(lbl);row.appendChild(sb);c.appendChild(row);
   });
 }
@@ -535,13 +535,13 @@ function addSch(){
   if(!t)return;
   sch.push({time:t,event:e});
   sch.sort((a,b)=>pTime(a.time)-pTime(b.time));
-  save('schedule',sch);renderSch();
+  save('schedule',sch,true);renderSch();
   document.getElementById('schTime').value='';document.getElementById('schEvent').value='';
   document.getElementById('schTime').focus();
 }
 function pTime(s){const m=s.match(/(\d+)(?::(\d+))?\s*(am|pm)?/i);if(!m)return 0;let h=parseInt(m[1]),mn=parseInt(m[2]||0),ap=(m[3]||'').toLowerCase();if(ap==='pm'&&h<12)h+=12;if(ap==='am'&&h===12)h=0;return h*60+mn;}
 document.getElementById('schEvent').addEventListener('keydown',e=>{if(e.key==='Enter')addSch();});
-function resetSch(){if(confirm('Clear all schedule entries?')){sch=[];save('schedule',sch);renderSch();}}
+function resetSch(){if(confirm('Clear all schedule entries?')){sch=[];save('schedule',sch,true);renderSch();}}
 renderSch();
 
 // ── TODO ──────────────────────────────────────────────────
